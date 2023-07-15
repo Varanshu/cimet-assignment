@@ -1,4 +1,3 @@
-import { tokenExpiration } from "../../utils/tokenExtaction";
 import axios from "axios";
 
 export default async function handler(req, res) {
@@ -7,11 +6,8 @@ export default async function handler(req, res) {
     return;
   }
 
-  console.log(req.body);
-
   try {
     const data = JSON.parse(req.body);
-    console.log("data", data);
     // Get the content from the API
     const output = await axios({
       method: "POST",
@@ -27,7 +23,6 @@ export default async function handler(req, res) {
     });
 
     const result = output.data;
-    console.log("res", result);
     res.status(200).json(result.data);
   } catch (error) {
     res.status(400).send(error.message);

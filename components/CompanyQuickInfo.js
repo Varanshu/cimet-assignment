@@ -2,7 +2,6 @@ import React from "react";
 import { styled } from "styled-components";
 
 const CompanyQuickInfo = ({ logo, content, title, pdf }) => {
-  // console.log(pdf);
   return (
     <Container>
       <Logo src={logo} alt={title} title={title} />

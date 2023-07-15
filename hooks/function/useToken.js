@@ -10,7 +10,6 @@ export const useToken = () => {
         LocalStorage.get(LocalStorageKeys.EXPIRATION_DATE)
       );
 
-      console.log("checkExpiry", checkExpiry);
       if (checkExpiry) {
         const data = await fetch("/api/getToken", {
           method: "POST"

@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 import CompanyDetailCard from "../components/CompanyDetailCard";
 import ErrorComponent from "../components/shared/ErrorComponent";
 
-import { useCheckExpiration, useSetCompanies, useToken } from "../hooks";
+import { useToken } from "../hooks";
 import { LoadingContext } from "../utils/context";
 
 const post = () => {

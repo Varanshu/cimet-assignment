@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { useCapitalWord } from "../hooks";
 
 const CompanyNameItem = ({ name, length, active = false }) => {
-  // console.log("active", active);
   return (
     <Item active={active}>
       {/* Name of the company */}

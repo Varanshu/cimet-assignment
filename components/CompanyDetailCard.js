@@ -8,7 +8,6 @@ import CompanyQuickPrice from "./CompanyQuickPrice";
 import dompurify from "dompurify";
 
 const CompanyDetailCard = ({ companyDetails }) => {
-  // console.log(companyDetails);
   const sanitizer = dompurify.sanitize;
   return (
     <Box>
