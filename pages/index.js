@@ -1,47 +1,45 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import CompanyNameItem from "../components/CompanyNameItem";
 import { styled } from "styled-components";
 import CompanyDetailCard from "../components/CompanyDetailCard";
-import Loading from "../components/shared/Loading";
 import ErrorComponent from "../components/shared/ErrorComponent";
 
-import { useCheckExpiration, useSetCompanies } from "../hooks";
+import { useCheckExpiration, useSetCompanies, useToken } from "../hooks";
+import { LoadingContext } from "../utils/context";
 
 const post = () => {
   const [companies, setCompanies] = useState({});
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
+  const { setLoading } = useContext(LoadingContext);
   const [error, setError] = useState(false);
+  const token = useToken();
+
   const getCompaniesFunction = async () => {
     setLoading(true);
-
-    if (useCheckExpiration()) {
-      const data = useCheckExpiration();
-      setCompanies(data);
-    } else {
-      try {
+    try {
+      if (companies && token) {
         const data = await fetch("/api/landingPage", {
-          method: "POST"
+          method: "POST",
+          body: JSON.stringify({
+            token: token
+          })
         });
         const result = await data.json();
-        useSetCompanies(result.expiration, result.data);
-        setCompanies(result.data);
-      } catch (error) {
-        console.log("qewqe", error);
-        setError(error);
+        setCompanies(result);
       }
+    } catch (error) {
+      setError(error);
     }
     setLoading(false);
   };
 
   useEffect(() => {
     getCompaniesFunction();
-  }, []);
+  }, [token]);
 
   const [currentCompany, setCurrentCompany] = useState(0);
 
-  if (loading) {
-    return <Loading />;
-  } else if (error) {
+  if (error) {
     return <ErrorComponent />;
   } else
     return (

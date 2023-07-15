@@ -2,17 +2,16 @@ import { tokenExpiration } from "../../utils/tokenExtaction";
 import axios from "axios";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") return;
+  if (req.method !== "POST" && !req.body) {
+    res.status(400);
+    return;
+  }
+
+  console.log(req.body);
 
   try {
-    // get token from the API
-    const tokenDetails = await tokenExpiration(req, res);
-
-    //create a custom error for no token and expiration
-    if (!tokenDetails.token || !tokenDetails.expiration) {
-      throw new CustomError("token and data error");
-    }
-
+    const data = JSON.parse(req.body);
+    console.log("data", data);
     // Get the content from the API
     const output = await axios({
       method: "POST",
@@ -20,7 +19,7 @@ export default async function handler(req, res) {
       headers: {
         "Content-Type": "application/json",
         "Api-key": process.env.API_KEY,
-        "auth-token": tokenDetails.token
+        "auth-token": data.token
       },
       data: JSON.stringify({
         session_id: process.env.SESSION_ID
@@ -28,17 +27,10 @@ export default async function handler(req, res) {
     });
 
     const result = output.data;
-
-    res.status(200).json({
-      expiration: tokenDetails.expiration,
-      ...result
-    });
+    console.log("res", result);
+    res.status(200).json(result.data);
   } catch (error) {
-    if (error instanceof CustomError) {
-      res.status(400).send("token and data error");
-    } else {
-      res.status(400).send(error.message);
-    }
+    res.status(400).send(error.message);
   }
 }
 
