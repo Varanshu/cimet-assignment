@@ -19,7 +19,7 @@ export const useToken = () => {
 
         Cookies.set("token", token, expiration);
         useSetExpiry(expiration);
-        setToken(token);
+        // setToken(token);
       }
     } catch (error) {
       console.log(error);
