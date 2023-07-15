@@ -5,12 +5,14 @@ import CompanyQuickInfo from "./CompanyQuickInfo";
 import CompanyQuickPlanDetail from "./CompanyQuickPlanDetail";
 import CompanyQuickPrice from "./CompanyQuickPrice";
 
-const CompanyDetailCard = ({ companyDetails, companyInfoName }) => {
-  // console.log(companyDetails);
+import dompurify from "dompurify";
+
+const CompanyDetailCard = ({ companyDetails }) => {
+  const sanitizer = dompurify.sanitize;
   return (
     <Box>
       <Legend>
-        <LegendTitle>{useCapitalWord(companyInfoName)}</LegendTitle>
+        <LegendTitle>{useCapitalWord(companyDetails.energy_type)}</LegendTitle>
         <LegendTitle>{companyDetails.plan_name}</LegendTitle>
       </Legend>
 
@@ -49,7 +51,7 @@ const CompanyDetailCard = ({ companyDetails, companyInfoName }) => {
         </ShortInfo>
         <Description
           dangerouslySetInnerHTML={{
-            __html: companyDetails.dmo_content.Ausgrid
+            __html: sanitizer(companyDetails.dmo_content.Ausgrid)
           }}
         />
       </Container>

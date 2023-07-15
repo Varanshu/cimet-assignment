@@ -1774,6 +1774,11 @@
   "resolved" "https://registry.npmjs.org/diff/-/diff-5.1.0.tgz"
   "version" "5.1.0"
 
+"dompurify@^3.0.5":
+  "integrity" "sha512-F9e6wPGtY+8KNMRAVfxeCOHU0/NPWMSENNq4pQctuXRqqdEPW7q3CrLbR5Nse044WwacyjHGOMlvNsBe1y6z9A=="
+  "resolved" "https://registry.npmjs.org/dompurify/-/dompurify-3.0.5.tgz"
+  "version" "3.0.5"
+
 "electron-to-chromium@^1.4.431":
   "integrity" "sha512-sxX0LXh+uL41hSJsujAN86PjhrV/6c79XmpY0TvjZStV6VxIgarf8SRkUoUTuYmFcZQTemsoqo8qXOGw5npWfw=="
   "resolved" "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.4.447.tgz"
