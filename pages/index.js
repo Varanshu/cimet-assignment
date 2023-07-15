@@ -38,15 +38,6 @@ const post = () => {
   }, []);
 
   const [currentCompany, setCurrentCompany] = useState(0);
-  const [companyArray, setCompanyArray] = useState();
-  const [companyName, setCompanyName] = useState();
-
-  useEffect(() => {
-    if (companies && Object.values(companies).length) {
-      setCompanyName(Object.keys(companies)[currentCompany]);
-      setCompanyArray(Object.values(companies)[currentCompany]);
-    }
-  }, [companies, currentCompany]);
 
   if (loading) {
     return <Loading />;
@@ -67,13 +58,10 @@ const post = () => {
               </span>
             ))}
         </NavBarStrip>
-        {companyArray?.map((company, index) => {
+        {Object.values(companies)[currentCompany]?.map((company, index) => {
           return (
             <div key={index}>
-              <CompanyDetailCard
-                companyDetails={company}
-                companyInfoName={companyName}
-              />
+              <CompanyDetailCard companyDetails={company} />
             </div>
           );
         })}
@@ -84,17 +72,5 @@ const post = () => {
 const NavBarStrip = styled.div`
   margin-bottom: 50px;
 `;
-
-// export async function getServerSideProps() {
-//   const data = await fetch('http://localhost:3000/api/landingPage', {
-//     method: 'POST'
-//   })
-//   const result = await data.json()
-//   return {
-//     props: {
-//       companies: result.data
-//     }
-//   }
-// }
 
 export default post;

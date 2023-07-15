@@ -7,13 +7,13 @@ import CompanyQuickPrice from "./CompanyQuickPrice";
 
 import dompurify from "dompurify";
 
-const CompanyDetailCard = ({ companyDetails, companyInfoName }) => {
+const CompanyDetailCard = ({ companyDetails }) => {
   // console.log(companyDetails);
   const sanitizer = dompurify.sanitize;
   return (
     <Box>
       <Legend>
-        <LegendTitle>{useCapitalWord(companyInfoName)}</LegendTitle>
+        <LegendTitle>{useCapitalWord(companyDetails.energy_type)}</LegendTitle>
         <LegendTitle>{companyDetails.plan_name}</LegendTitle>
       </Legend>
 
