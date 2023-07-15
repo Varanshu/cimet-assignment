@@ -5,8 +5,11 @@ import CompanyQuickInfo from "./CompanyQuickInfo";
 import CompanyQuickPlanDetail from "./CompanyQuickPlanDetail";
 import CompanyQuickPrice from "./CompanyQuickPrice";
 
+import dompurify from "dompurify";
+
 const CompanyDetailCard = ({ companyDetails, companyInfoName }) => {
   // console.log(companyDetails);
+  const sanitizer = dompurify.sanitize;
   return (
     <Box>
       <Legend>
@@ -49,7 +52,7 @@ const CompanyDetailCard = ({ companyDetails, companyInfoName }) => {
         </ShortInfo>
         <Description
           dangerouslySetInnerHTML={{
-            __html: companyDetails.dmo_content.Ausgrid
+            __html: sanitizer(companyDetails.dmo_content.Ausgrid)
           }}
         />
       </Container>
