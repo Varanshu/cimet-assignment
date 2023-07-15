@@ -46,6 +46,7 @@ const post = () => {
   } else
     return (
       <div className="container container-lg">
+        {/* Display all the items available in the object */}
         <NavBarStrip>
           {companies &&
             Object.keys(companies).map((companyName, index) => (
@@ -58,6 +59,8 @@ const post = () => {
               </span>
             ))}
         </NavBarStrip>
+
+        {/* Display the each values of the items of the objects */}
         {Object.values(companies)[currentCompany]?.map((company, index) => {
           return (
             <div key={index}>

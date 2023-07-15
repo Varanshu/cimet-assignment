@@ -5,10 +5,15 @@ export default async function handler(req, res) {
   if (req.method !== "POST") return;
 
   try {
+    // get token from the API
     const tokenDetails = await tokenExpiration(req, res);
+
+    //create a custom error for no token and expiration
     if (!tokenDetails.token || !tokenDetails.expiration) {
       throw new CustomError("token and data error");
     }
+
+    // Get the content from the API
     const output = await axios({
       method: "POST",
       url: "https://devcore02.cimet.io/v1/plan-list",
@@ -23,8 +28,6 @@ export default async function handler(req, res) {
     });
 
     const result = output.data;
-
-    // console.log("output", output.data);
 
     res.status(200).json({
       expiration: tokenDetails.expiration,
