@@ -17,6 +17,7 @@ a {
 
 main {
   min-height: 80vh;
+  z-index: 0;
 }
 
 header {
@@ -29,7 +30,7 @@ footer {
 
 .container {
   margin-inline: auto;
-  width: 100%
+  width: 100%;
 }
 
 .container-lg {
