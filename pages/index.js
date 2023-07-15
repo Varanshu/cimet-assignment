@@ -3,6 +3,7 @@ import CompanyNameItem from "../components/CompanyNameItem";
 import { styled } from "styled-components";
 import CompanyDetailCard from "../components/CompanyDetailCard";
 import ErrorComponent from "../components/shared/ErrorComponent";
+import Cookies from "js-cookie";
 
 import { useToken } from "../hooks";
 import { LoadingContext } from "../utils/context";
@@ -12,12 +13,14 @@ const post = () => {
   // const [loading, setLoading] = useState(false);
   const { setLoading } = useContext(LoadingContext);
   const [error, setError] = useState(false);
-  const token = useToken();
+  useToken();
+
+  const token = Cookies.get("token");
 
   const getCompaniesFunction = async () => {
     setLoading(true);
-    try {
-      if (companies && token) {
+    if (companies && !isNaN(Object.values(companies).length) && token) {
+      try {
         const data = await fetch("/api/landingPage", {
           method: "POST",
           body: JSON.stringify({
@@ -26,9 +29,9 @@ const post = () => {
         });
         const result = await data.json();
         setCompanies(result);
+      } catch (error) {
+        setError(error);
       }
-    } catch (error) {
-      setError(error);
     }
     setLoading(false);
   };

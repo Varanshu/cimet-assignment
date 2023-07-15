@@ -4,7 +4,7 @@ import { styled } from "styled-components";
 const CompanyQuickInfo = ({ logo, content, title, pdf }) => {
   return (
     <Container>
-      <Logo src={logo} alt={title} title={title} />
+      <Logo src={logo} alt={title} title={title} loading="lazy" />
       <PdfLink href={pdf} target="__blank">
         View Document
       </PdfLink>
@@ -31,6 +31,7 @@ const Logo = styled.img`
 const PdfLink = styled.a`
   font-size: smaller;
   color: blue;
+  cursor: pointer;
   transition: all 0.1s;
   &:hover {
     text-decoration: underline;
