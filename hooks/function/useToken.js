@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
+import Cookies from "js-cookie";
 import { useCheckExpiry, useSetExpiry } from "../../hooks";
 import { LocalStorage, LocalStorageKeys } from "../../utils/LocalStorage";
-export const useToken = () => {
-  const [token, setToken] = useState(null);
 
+export const useToken = () => {
   const fetchToken = async () => {
     try {
       const checkExpiry = useCheckExpiry(
@@ -16,12 +16,10 @@ export const useToken = () => {
         });
         const values = await data.json();
         const { token, expiration } = values;
-        LocalStorage.set(LocalStorageKeys.TOKEN, JSON.stringify(token));
+
+        Cookies.set("token", token, expiration);
         useSetExpiry(expiration);
         setToken(token);
-      } else {
-        const value = LocalStorage.get(LocalStorageKeys.TOKEN);
-        setToken(value);
       }
     } catch (error) {
       console.log(error);
@@ -31,6 +29,4 @@ export const useToken = () => {
   useEffect(() => {
     fetchToken();
   }, []);
-
-  return token;
 };
